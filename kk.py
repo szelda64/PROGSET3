@@ -22,7 +22,7 @@ def kk_alg(a):
 
 def sol_to_seq(a,b):
     seq = np.zeros(shape=len(b))
-    for i in range(start=1,stop=len(b)+1):
+    for i in range(start=1,stop=len(b)):
         p = b[i]
         seq[p] = seq[p] + a[i]
     return seq
