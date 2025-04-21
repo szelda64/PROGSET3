@@ -22,4 +22,10 @@ def kk_alg(a):
 
 def rep_random(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
-    
+    for _ in range(25000):
+        sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
+        if(kk_alg(sol2) < kk_alg(sol)):
+            sol = sol2
+    return sol
+
+
