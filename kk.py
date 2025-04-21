@@ -20,11 +20,18 @@ def kk_alg(a):
     a.append(np.int(0))
     return kk_alg(a)
 
+def sol_to_seq(a,b):
+    seq = np.zeros(shape=len(b))
+    for i in range(start=1,stop=len(b)+1):
+        p = b[i]
+        seq[p] = seq[p] + a[i]
+    return seq
+
 def rep_random(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
-    for _ in range(25000):
+    for _ in range(start=1,stop=25001):
         sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
-        if(kk_alg(sol2) < kk_alg(sol)):
+        if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
             sol = sol2
     return sol
 
