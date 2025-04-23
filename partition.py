@@ -83,13 +83,13 @@ def PP_hill_climbing(a):
 #SIMULATED ANNEALING 
 
 def simul_anneal(a):
-    initial_temp=100
-    cooling_rate=0.99
+    initial_temp=10**10
+    cooling_rate=0.8
 
     sol = np.random.choices([np.int64(-1),np.int64(1)], len(a))
 
     for t in range(1,25001):
-        temp = initial_temp * (cooling_rate**t)
+        temp = initial_temp * (cooling_rate**(t/300))
 
         current_Cost = kk_alg(sol_to_seq(a,sol))
 
