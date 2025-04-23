@@ -30,7 +30,7 @@ def sol_to_seq(a,b):
         seq[p] = seq[p] + a[i]
     return seq
 
-def rep_random(a):
+def PP_rep_random(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
     for _ in range(1,25001):
         sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
@@ -38,7 +38,7 @@ def rep_random(a):
             sol = sol2
     return sol
 
-def hill_climbing(a):
+def PP_hill_climbing(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
 
     for _ in range(1,25001):
@@ -48,7 +48,7 @@ def hill_climbing(a):
             sol = sol2
     return sol
 
-def simul_anneal(a):
+def PP_simul_anneal(a):
     initial_temp=100
     cooling_rate=0.99
 
