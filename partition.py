@@ -33,9 +33,9 @@ def sol_to_seq(a,b):
 #REPEATED RANDOM
 
 def rep_random(a):
-    sol = np.random.randint(low=-1,high=1,size=len(a),dtype=np.int64)
+    sol = np.random.choices([np.int64(-1),np.int64(1)], len(a))
     for _ in range(1,25001):
-        sol2 = np.random.randint(low=-1,high=1,size=len(a),dtype=np.int64)
+        sol2 = np.random.choices([np.int64(-1),np.int64(1)], len(a))
         if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
             sol = sol2
     return sol
@@ -52,7 +52,7 @@ def PP_rep_random(a):
 #HILL CLIMBING
 
 def hill_climbing(a):
-    sol = np.random.randint(low=-1,high=1,size=len(a),dtype=np.int64)
+    sol = np.random.choices([np.int64(-1),np.int64(1)], len(a))
 
     for _ in range(1,25001):
         sol2 = sol[:]
@@ -80,7 +80,7 @@ def simul_anneal(a):
     initial_temp=100
     cooling_rate=0.99
 
-    sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
+    sol = np.random.choices([np.int64(-1),np.int64(1)], len(a))
 
     for t in range(1,25001):
         temp = initial_temp * (cooling_rate**t)
@@ -129,5 +129,3 @@ def PP_simul_anneal(a):
 
 
 example1 = [10,8,7,6,5]
-
-
