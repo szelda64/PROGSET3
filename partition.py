@@ -1,5 +1,11 @@
+import sys
 import heapq
 import numpy as np
+
+def extractNumbers(file: str):
+    with open(file, 'r') as f:
+        return f.read().splitlines()
+
 
 def kk_alg(a):
     print(f"Current sequence: {a}")
@@ -129,3 +135,24 @@ def PP_simul_anneal(a):
 
 
 example1 = [10,8,7,6,5]
+
+
+flag = int(sys.argv[1])
+algorithm = int(sys.argv[2])
+file = sys.argv[3]
+a = extractNumbers(file)
+
+if algorithm == 0:
+    kk_alg(a)
+elif algorithm == 1:
+    rep_random(a)
+elif algorithm == 2:
+    hill_climbing(a)
+elif algorithm == 3:
+    simul_anneal(a)
+elif algorithm == 11:
+    PP_rep_random(a)
+elif algorithm == 12:
+    PP_hill_climbing(a)
+elif algorithm == 13:
+    PP_simul_anneal(a)
