@@ -30,10 +30,34 @@ def sol_to_seq(a,b):
         seq[p] = seq[p] + a[i]
     return seq
 
+#REPEATED RANDOM
+
+def rep_random(a):
+    sol = np.random.randint(low=-1,high=1,size=len(a),dtype=np.int64)
+    for _ in range(1,25001):
+        sol2 = np.random.randint(low=-1,high=1,size=len(a),dtype=np.int64)
+        if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
+            sol = sol2
+    return sol
+
 def PP_rep_random(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
     for _ in range(1,25001):
         sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
+        if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
+            sol = sol2
+    return sol
+
+
+#HILL CLIMBING
+
+def hill_climbing(a):
+    sol = np.random.randint(low=-1,high=1,size=len(a),dtype=np.int64)
+
+    for _ in range(1,25001):
+        sol2 = sol[:]
+        #generates a random neighbor rather than generating all neighbors and picking one randomly
+        sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = -1 * sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] 
         if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
             sol = sol2
     return sol
@@ -43,10 +67,40 @@ def PP_hill_climbing(a):
 
     for _ in range(1,25001):
         sol2 = sol[:]
-        sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = -1 * sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] 
+        #generates a random neighbor rather than generating all neighbors and picking one randomly
+        sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = np.random.randint(low=1,high=len(a),dtype=np.int64) 
         if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
             sol = sol2
     return sol
+
+
+#SIMULATED ANNEALING 
+
+def simul_anneal(a):
+    initial_temp=100
+    cooling_rate=0.99
+
+    sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
+
+    for t in range(1,25001):
+        temp = initial_temp * (cooling_rate**t)
+
+        current_Cost = kk_alg(sol_to_seq(a,sol))
+
+        sol2 = sol[:]
+        #generates a random neighbor rather than generating all neighbors and picking one randomly
+        sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = -1 * sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] 
+        neighbor_Cost = kk_alg(sol_to_seq(a,sol2))
+
+        deltaE =  current_Cost - neighbor_Cost
+        prob = np.e **((-deltaE)/temp)
+
+        #if solution is better or if probability says yes to the dress
+        if deltaE > 0 or prob > temp: 
+            sol = sol2
+
+    return sol         
+
 
 def PP_simul_anneal(a):
     initial_temp=100
@@ -57,9 +111,11 @@ def PP_simul_anneal(a):
     for t in range(1,25001):
         temp = initial_temp * (cooling_rate**t)
 
-        current_Cost = kk_alg(sol_to_seq(a,sol1))
+        current_Cost = kk_alg(sol_to_seq(a,sol))
 
-        sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
+        sol2 = sol[:]
+        #generates a random neighbor rather than generating all neighbors and picking one randomly
+        sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = np.random.randint(low=1,high=len(a),dtype=np.int64) 
         neighbor_Cost = kk_alg(sol_to_seq(a,sol2))
 
         deltaE =  current_Cost - neighbor_Cost
