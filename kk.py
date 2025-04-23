@@ -3,6 +3,7 @@ import numpy as np
 
 def kk_alg(a):
     print(f"Current sequence: {a}")
+    a = list(a)
     heapq.heapify(a)
     a1 = []
     a2 = []
@@ -24,14 +25,14 @@ def kk_alg(a):
 
 def sol_to_seq(a,b):
     seq = np.zeros(shape=len(b))
-    for i in range(start=1,stop=len(b)):
+    for i in range(1,len(b)):
         p = b[i]
         seq[p] = seq[p] + a[i]
     return seq
 
 def rep_random(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
-    for _ in range(start=1,stop=25001):
+    for _ in range(1,25001):
         sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
         if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
             sol = sol2
@@ -40,7 +41,7 @@ def rep_random(a):
 def hill_climbing(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
 
-    for _ in range(start=1,stop=25001):
+    for _ in range(1,25001):
         sol2 = sol[:]
         sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = -1 * sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] 
         if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
@@ -53,7 +54,7 @@ def simul_anneal(a):
 
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
 
-    for t in range(start=1,stop=25001):
+    for t in range(1,25001):
         temp = initial_temp * (cooling_rate**t)
 
         current_Cost = kk_alg(sol_to_seq(a,sol1))
@@ -68,8 +69,7 @@ def simul_anneal(a):
         if deltaE > 0 or prob > temp: 
             sol = sol2
 
-    return sol 
-        
+    return sol         
 
 
 example1 = [10,8,7,6,5]
