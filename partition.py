@@ -44,7 +44,7 @@ def sol_to_seq(a,b):
         for j in range(len(a)):
             if i < j:
                 if b[i] == b[j]:
-                    seq[i] += a[j]
+                    seq[i] += seq[j]
                     seq[j] = 0
     return seq
 
