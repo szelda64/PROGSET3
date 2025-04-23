@@ -7,6 +7,8 @@ def extractNumbers(file: str):
         return f.read().splitlines()
 
 
+#KK ALGORITHM
+
 def kk_alg(a):
     print(f"Current sequence: {a}")
     a = list(a)
@@ -29,12 +31,23 @@ def kk_alg(a):
     a.append(int(0))
     return kk_alg(a)
 
+# def sol_to_seq(a,b):
+#     seq = np.zeros(shape=len(b))
+#     for i in range(1,len(b)):
+#         p = b[i]
+#         seq[p] = seq[p] + a[i]
+#     return seq
+
 def sol_to_seq(a,b):
-    seq = np.zeros(shape=len(b))
-    for i in range(1,len(b)):
-        p = b[i]
-        seq[p] = seq[p] + a[i]
+    seq = a[:]
+    for i in range(len(b)):
+        for j in range(len(a)):
+            if i < j:
+                if b[i] == b[j]:
+                    seq[i] += a[j]
+                    seq[j] = 0
     return seq
+
 
 #REPEATED RANDOM
 
@@ -53,6 +66,8 @@ def PP_rep_random(a):
         if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
             sol = sol2
     return sol
+
+
 
 
 #HILL CLIMBING
@@ -78,6 +93,8 @@ def PP_hill_climbing(a):
         if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
             sol = sol2
     return sol
+
+
 
 
 #SIMULATED ANNEALING 
@@ -135,6 +152,7 @@ def PP_simul_anneal(a):
 
 
 example1 = [10,8,7,6,5]
+example1SOL = [1,2,2,4,5]
 
 
 flag = int(sys.argv[1])
