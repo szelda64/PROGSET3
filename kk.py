@@ -47,7 +47,29 @@ def hill_climbing(a):
             sol = sol2
     return sol
 
-#def simul_anneal(a):
+def simul_anneal(a):
+    initial_temp=100
+    cooling_rate=0.99
+
+    sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
+
+    for t in range(start=1,stop=25001):
+        temp = initial_temp * (cooling_rate**t)
+
+        current_Cost = kk_alg(sol_to_seq(a,sol1))
+
+        sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
+        neighbor_Cost = kk_alg(sol_to_seq(a,sol2))
+
+        deltaE =  current_Cost - neighbor_Cost
+        prob = np.e **((-deltaE)/temp)
+
+        #if solution is better or if probability says yes to the dress
+        if deltaE > 0 or prob > temp: 
+            sol = sol2
+
+    return sol 
+        
 
 
 example1 = [10,8,7,6,5]
