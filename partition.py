@@ -64,7 +64,7 @@ def PP_sol_to_seq(a,b):
 
 def rep_random(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
-    for _ in np.arange(1, 2500, dtype=np.int64):
+    for _ in np.arange(1, 2501, dtype=np.int64):
         i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
         sol2 = sol[:]
         if np.random.random() < 0.5:
@@ -77,7 +77,7 @@ def rep_random(a):
 
 def PP_rep_random(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
-    for _ in np.arange(1, 2500, dtype=np.int64):
+    for _ in np.arange(1, 2501, dtype=np.int64):
         sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
         if(kk_alg(PP_sol_to_seq(a,sol2)) < kk_alg(PP_sol_to_seq(a,sol))):
             sol = sol2
@@ -91,7 +91,7 @@ def PP_rep_random(a):
 def hill_climbing(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
 
-    for _ in np.arange(1, 2500, dtype=np.int64):
+    for _ in np.arange(1, 2501, dtype=np.int64):
         sol2 = sol[:]
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
@@ -105,7 +105,7 @@ def hill_climbing(a):
 def PP_hill_climbing(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
 
-    for _ in np.arange(1, 2500, dtype=np.int64):
+    for _ in np.arange(1, 2501, dtype=np.int64):
         sol2 = sol[:]
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
@@ -127,7 +127,7 @@ def simul_anneal(a):
 
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
 
-    for t in np.arange(1, 2500, dtype=np.int64):
+    for t in np.arange(1, 2501, dtype=np.int64):
         temp = initial_temp * (cooling_rate**(t/300))
 
         current_Cost = eval_sol(a,sol)
@@ -159,7 +159,7 @@ def PP_simul_anneal(a):
 
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
 
-    for t in np.arange(1, 2500, dtype=np.int64):
+    for t in np.arange(1, 2501, dtype=np.int64):
         temp = initial_temp * (cooling_rate**t)
 
         current_Cost = kk_alg(PP_sol_to_seq(a,sol))
