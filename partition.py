@@ -208,11 +208,11 @@ a = extractNumbers(file)
 if algorithm == 0:
     print(kk_alg(a))
 elif algorithm == 1:
-    print(kk_alg(PP_sol_to_seq(a,rep_random(a))))
+    print(eval_sol(a,rep_random(a)))
 elif algorithm == 2:
-    print(kk_alg(PP_sol_to_seq(a,hill_climbing(a))))
+    print(eval_sol(a,hill_climbing(a)))
 elif algorithm == 3:
-    print(kk_alg(PP_sol_to_seq(a,simul_anneal(a))))
+    print(eval_sol(a,simul_anneal(a)))
 elif algorithm == 11:
     print(kk_alg(PP_sol_to_seq(a,PP_rep_random(a))))
 elif algorithm == 12:
