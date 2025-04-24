@@ -108,7 +108,7 @@ def PP_hill_climbing(a):
         sol2 = sol[:]
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
-            if sol[i] != j:
+            if sol2[i] != j:
                 break
         sol2[i] = j
         if(kk_alg(PP_sol_to_seq(a,sol2)) < kk_alg(PP_sol_to_seq(a,sol))):
