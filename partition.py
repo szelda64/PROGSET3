@@ -65,7 +65,12 @@ def PP_sol_to_seq(a,b):
 def rep_random(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
     for _ in np.arange(1, 500, dtype=np.int64):
-        sol2 = np.random.choice([np.int64(-1),np.int64(1)], len(a))
+        i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
+        sol2 = sol[:]
+        if np.random.random() < 0.5:
+            sol[i] *= -1
+        else:
+            sol[j] *= -1 
         if eval_sol(a,sol2) < eval_sol(a,sol):
             sol = sol2
     return sol
@@ -88,8 +93,11 @@ def hill_climbing(a):
 
     for _ in np.arange(1, 500, dtype=np.int64):
         sol2 = sol[:]
-        #generates a random neighbor rather than generating all neighbors and picking one randomly
-        sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = -1 * sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] 
+        while True:
+            i,j=np.random.randint(low=1,high=len(a), dtype=np.int64)
+            if sol[i] != j:
+                break
+        sol2[i] = j
         if eval_sol(a,sol2) < eval_sol(a,sol):
             sol = sol2
     return sol
@@ -99,8 +107,11 @@ def PP_hill_climbing(a):
 
     for _ in np.arange(1, 500, dtype=np.int64):
         sol2 = sol[:]
-        #generates a random neighbor rather than generating all neighbors and picking one randomly
-        sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = np.random.randint(low=1,high=len(a),dtype=np.int64) 
+        while True:
+            i,j=np.random.randint(low=1,high=len(a), dtype=np.int64)
+            if sol[i] != j:
+                break
+        sol2[i] = j
         if(kk_alg(PP_sol_to_seq(a,sol2)) < kk_alg(PP_sol_to_seq(a,sol))):
             sol = sol2
     return sol
@@ -122,8 +133,11 @@ def simul_anneal(a):
         current_Cost = eval_sol(a,sol)
 
         sol2 = sol[:]
-        #generates a random neighbor rather than generating all neighbors and picking one randomly
-        sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = -1 * sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] 
+        while True:
+            i,j=np.random.randint(low=1,high=len(a), dtype=np.int64)
+            if sol[i] != j:
+                break
+        sol2[i] = j
         neighbor_Cost =eval_sol(a,sol2)
 
         deltaE =  current_Cost - neighbor_Cost
@@ -151,8 +165,11 @@ def PP_simul_anneal(a):
         current_Cost = kk_alg(PP_sol_to_seq(a,sol))
 
         sol2 = sol[:]
-        #generates a random neighbor rather than generating all neighbors and picking one randomly
-        sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = np.random.randint(low=1,high=len(a),dtype=np.int64) 
+        while True:
+            i,j=np.random.randint(low=1,high=len(a), dtype=np.int64)
+            if sol[i] != j:
+                break
+        sol2[i] = j
         neighbor_Cost = kk_alg(PP_sol_to_seq(a,sol2))
 
         deltaE =  current_Cost - neighbor_Cost
