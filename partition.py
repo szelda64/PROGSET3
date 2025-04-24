@@ -2,7 +2,7 @@ import sys
 import heapq
 import numpy as np
 
-def extractNumbers(file: str):
+def extractNumbers(file):
     with open(file, 'r') as f:
         return f.read().splitlines()
 
@@ -10,18 +10,18 @@ def extractNumbers(file: str):
 #KK ALGORITHM
 
 def kk_alg(a):
-    print(f"Current sequence: {a}")
+    #print(f"Current sequence: {a}")
     a = list(a)
     heapq.heapify(a)
     a1 = []
     a2 = []
     maxes = heapq.nlargest(2,a)
     max1 = np.int64(maxes[0])
-    print(f"Largest element: {max1}")
+    #print(f"Largest element: {max1}")
     max2 = np.int64(maxes[1])
-    print(f"Second-largest element: {max2}")
+    #print(f"Second-largest element: {max2}")
     if(max2 == 0):
-        print(f"Residue found: {max1}")
+        #print(f"Residue found: {max1}")
         return max1
     a.remove(max1)
     a1.append(max1)
@@ -52,9 +52,9 @@ def sol_to_seq(a,b):
 #REPEATED RANDOM
 
 def rep_random(a):
-    sol = np.random.choices([np.int64(-1),np.int64(1)], len(a))
+    sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
     for _ in range(1,25001):
-        sol2 = np.random.choices([np.int64(-1),np.int64(1)], len(a))
+        sol2 = np.random.choice([np.int64(-1),np.int64(1)], len(a))
         if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
             sol = sol2
     return sol
@@ -73,7 +73,7 @@ def PP_rep_random(a):
 #HILL CLIMBING
 
 def hill_climbing(a):
-    sol = np.random.choices([np.int64(-1),np.int64(1)], len(a))
+    sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
 
     for _ in range(1,25001):
         sol2 = sol[:]
@@ -103,7 +103,7 @@ def simul_anneal(a):
     initial_temp=10**10
     cooling_rate=0.8
 
-    sol = np.random.choices([np.int64(-1),np.int64(1)], len(a))
+    sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
 
     for t in range(1,25001):
         temp = initial_temp * (cooling_rate**(t/300))
