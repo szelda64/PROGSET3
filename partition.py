@@ -132,7 +132,7 @@ def simul_anneal(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
 
     for t in np.arange(1, 2501, dtype=np.int64):
-        temp = initial_temp * (cooling_rate**(t/300))
+        temp = initial_temp * (cooling_rate**(t // 300))
 
         current_Cost = eval_sol(a,sol)
 
@@ -146,7 +146,7 @@ def simul_anneal(a):
             sol[j] *= -1 
         neighbor_Cost =eval_sol(a,sol2)
 
-        deltaE =  current_Cost - neighbor_Cost
+        deltaE =  neighbor_Cost - current_Cost
         if temp != np.int64(0):
             prob = np.int64(np.e) **((-deltaE)/temp)
         else:
@@ -166,7 +166,7 @@ def PP_simul_anneal(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
 
     for t in np.arange(1, 2501, dtype=np.int64):
-        temp = initial_temp * (cooling_rate**t)
+        temp = initial_temp * (cooling_rate**(t // 300))
 
         current_Cost = kk_alg(PP_sol_to_seq(a,sol))
 
