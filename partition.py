@@ -1,6 +1,7 @@
 import sys
 import heapq
 import numpy as np
+import math
 
 def extractNumbers(file):
     with open(file, 'r') as f:
@@ -132,7 +133,7 @@ def simul_anneal(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
     sol3 = sol
     for t in np.arange(1, 2501, dtype=np.int64):
-        temp = initial_temp * (cooling_rate**(t // 300))
+        temp = initial_temp * (cooling_rate**(math.floor(t / 300)))
 
         current_Cost = eval_sol(a,sol)
 
@@ -168,7 +169,7 @@ def PP_simul_anneal(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
     sol3 = sol
     for t in np.arange(1, 2501, dtype=np.int64):
-        temp = initial_temp * (cooling_rate**(t // 300))
+        temp = initial_temp * (cooling_rate**(math.floor(t / 300)))
 
         current_Cost = kk_alg(PP_sol_to_seq(a,sol))
 
