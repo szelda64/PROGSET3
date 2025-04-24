@@ -94,9 +94,9 @@ def hill_climbing(a):
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
             if i != j:
                 break
-        sol[i] *= -1
+        sol2[i] *= -1
         if np.random.random() < 0.5:
-            sol[j] *= -1 
+            sol2[j] *= -1 
         if eval_sol(a,sol2) < eval_sol(a,sol):
             sol = sol2
     return sol
@@ -108,7 +108,7 @@ def PP_hill_climbing(a):
         sol2 = sol[:]
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
-            if sol[i] != j:
+            if sol2[i] != j:
                 break
         sol2[i] = j
         if(kk_alg(PP_sol_to_seq(a,sol2)) < kk_alg(PP_sol_to_seq(a,sol))):
