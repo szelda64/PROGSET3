@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from partition import *
+from partition import kk_alg, eval_sol, rep_random, hill_climbing, simul_anneal, PP_sol_to_seq, PP_rep_random, PP_hill_climbing, PP_simul_anneal
 
 def randomTests():
     residues = [[] for _ in range(7)]
@@ -62,8 +62,16 @@ def randomTests():
     fig.set_size_inches(60, 20)
     return residues
 
-    
 
+    ax1.legend()
+    ax2.legend()
+    fig.supxlabel('Run Number')
+    fig.supylabel('Residue')
+    fig.suptitle('Residues of Algorithms')
+
+    fig.set_size_inches(18.5, 8.5)
+    fig.show()
+randomTests()
 
 
 
