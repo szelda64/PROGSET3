@@ -65,11 +65,13 @@ def PP_sol_to_seq(a,b):
 def rep_random(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
     for _ in np.arange(1, 2501, dtype=np.int64):
-        i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
         sol2 = sol[:]
+        while True:
+            i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
+            if i != j:
+                break
+        sol[i] *= -1
         if np.random.random() < 0.5:
-            sol[i] *= -1
-        else:
             sol[j] *= -1 
         if eval_sol(a,sol2) < eval_sol(a,sol):
             sol = sol2
@@ -95,9 +97,11 @@ def hill_climbing(a):
         sol2 = sol[:]
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
-            if sol[i] != j:
+            if i != j:
                 break
-        sol2[i] = j
+        sol[i] *= -1
+        if np.random.random() < 0.5:
+            sol[j] *= -1 
         if eval_sol(a,sol2) < eval_sol(a,sol):
             sol = sol2
     return sol
@@ -135,9 +139,11 @@ def simul_anneal(a):
         sol2 = sol[:]
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
-            if sol[i] != j:
+            if i != j:
                 break
-        sol2[i] = j
+        sol[i] *= -1
+        if np.random.random() < 0.5:
+            sol[j] *= -1 
         neighbor_Cost =eval_sol(a,sol2)
 
         deltaE =  current_Cost - neighbor_Cost
