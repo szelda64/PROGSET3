@@ -5,6 +5,7 @@ from partition import *
 def randomTests():
     residues = [[] for _ in range(7)]
     #0 = KK, 1 = RR, 2 = HC, 3 = SIM, 4 = PP_RR, 5 = PP_HC, 6 = PP_HC
+    y = np.arange(0,50)
 
     for _ in range(50):
         seq = sol = np.random.randint(low=1,high=100,size=100,dtype=np.int64)

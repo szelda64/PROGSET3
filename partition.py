@@ -31,14 +31,25 @@ def kk_alg(a):
     a.append(int(0))
     return kk_alg(a)
 
-# def sol_to_seq(a,b):
+# def PP_sol_to_seq(a,b):
 #     seq = np.zeros(shape=len(b))
 #     for i in range(1,len(b)):
 #         p = b[i]
 #         seq[p] = seq[p] + a[i]
 #     return seq
 
-def sol_to_seq(a,b):
+def eval_sol(a, b):
+    a1 = []
+    a2 = []
+    for i in range(len(b)):
+        if b[i] == 1:
+            a1.append(a[i])
+        else:
+            a2.append(a[i])
+    return abs(sum(a1)-sum(a2))
+
+
+def PP_sol_to_seq(a,b):
     seq = a[:]
     for i in range(len(b)):
         for j in range(len(a)):
@@ -55,7 +66,7 @@ def rep_random(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
     for _ in np.arange(1, 500, dtype=np.int64):
         sol2 = np.random.choice([np.int64(-1),np.int64(1)], len(a))
-        if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
+        if eval_sol(a,sol2) < eval_sol(a,sol):
             sol = sol2
     return sol
 
@@ -63,7 +74,7 @@ def PP_rep_random(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
     for _ in np.arange(1, 500, dtype=np.int64):
         sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
-        if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
+        if(kk_alg(PP_sol_to_seq(a,sol2)) < kk_alg(PP_sol_to_seq(a,sol))):
             sol = sol2
     return sol
 
@@ -79,7 +90,7 @@ def hill_climbing(a):
         sol2 = sol[:]
         #generates a random neighbor rather than generating all neighbors and picking one randomly
         sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = -1 * sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] 
-        if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
+        if eval_sol(a,sol2) < eval_sol(a,sol):
             sol = sol2
     return sol
 
@@ -90,7 +101,7 @@ def PP_hill_climbing(a):
         sol2 = sol[:]
         #generates a random neighbor rather than generating all neighbors and picking one randomly
         sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = np.random.randint(low=1,high=len(a),dtype=np.int64) 
-        if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
+        if(kk_alg(PP_sol_to_seq(a,sol2)) < kk_alg(PP_sol_to_seq(a,sol))):
             sol = sol2
     return sol
 
@@ -108,12 +119,12 @@ def simul_anneal(a):
     for t in np.arange(1, 500, dtype=np.int64):
         temp = initial_temp * (cooling_rate**(t/300))
 
-        current_Cost = kk_alg(sol_to_seq(a,sol))
+        current_Cost = eval_sol(a,sol)
 
         sol2 = sol[:]
         #generates a random neighbor rather than generating all neighbors and picking one randomly
         sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = -1 * sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] 
-        neighbor_Cost = kk_alg(sol_to_seq(a,sol2))
+        neighbor_Cost =eval_sol(a,sol2)
 
         deltaE =  current_Cost - neighbor_Cost
         if temp != np.int64(0):
@@ -137,12 +148,12 @@ def PP_simul_anneal(a):
     for t in np.arange(1, 500, dtype=np.int64):
         temp = initial_temp * (cooling_rate**t)
 
-        current_Cost = kk_alg(sol_to_seq(a,sol))
+        current_Cost = kk_alg(PP_sol_to_seq(a,sol))
 
         sol2 = sol[:]
         #generates a random neighbor rather than generating all neighbors and picking one randomly
         sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = np.random.randint(low=1,high=len(a),dtype=np.int64) 
-        neighbor_Cost = kk_alg(sol_to_seq(a,sol2))
+        neighbor_Cost = kk_alg(PP_sol_to_seq(a,sol2))
 
         deltaE =  current_Cost - neighbor_Cost
         if temp != np.int64(0): 
@@ -169,14 +180,14 @@ a = extractNumbers(file)
 if algorithm == 0:
     print(kk_alg(a))
 elif algorithm == 1:
-    print(kk_alg(sol_to_seq(a,rep_random(a))))
+    print(kk_alg(PP_sol_to_seq(a,rep_random(a))))
 elif algorithm == 2:
-    print(kk_alg(sol_to_seq(a,hill_climbing(a))))
+    print(kk_alg(PP_sol_to_seq(a,hill_climbing(a))))
 elif algorithm == 3:
-    print(kk_alg(sol_to_seq(a,simul_anneal(a))))
+    print(kk_alg(PP_sol_to_seq(a,simul_anneal(a))))
 elif algorithm == 11:
-    print(kk_alg(sol_to_seq(a,PP_rep_random(a))))
+    print(kk_alg(PP_sol_to_seq(a,PP_rep_random(a))))
 elif algorithm == 12:
-    print(kk_alg(sol_to_seq(a,PP_hill_climbing(a))))
+    print(kk_alg(PP_sol_to_seq(a,PP_hill_climbing(a))))
 elif algorithm == 13:
-    print(kk_alg(sol_to_seq(a,PP_simul_anneal(a))))
+    print(kk_alg(PP_sol_to_seq(a,PP_simul_anneal(a))))
