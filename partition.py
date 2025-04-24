@@ -178,7 +178,7 @@ def PP_simul_anneal(a):
         sol2[i] = j
         neighbor_Cost = kk_alg(PP_sol_to_seq(a,sol2))
 
-        deltaE =  current_Cost - neighbor_Cost
+        deltaE =  neighbor_Cost - current_Cost
         if temp != np.int64(0): 
             prob = np.int64(np.e) **((-deltaE)/temp)
         else:
