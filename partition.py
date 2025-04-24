@@ -51,7 +51,7 @@ def eval_sol(a, b):
 
 
 def PP_sol_to_seq(a,b):
-    seq = a[:]
+    seq = np.array(a)
     for i in range(len(b)):
         for j in range(len(a)):
             if i < j:
@@ -89,7 +89,7 @@ def hill_climbing(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
 
     for _ in np.arange(1, 2501, dtype=np.int64):
-        sol2 = sol[:]
+        sol2 = np.array(sol)
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
             if i != j:
@@ -105,7 +105,7 @@ def PP_hill_climbing(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
 
     for _ in np.arange(1, 2501, dtype=np.int64):
-        sol2 = sol[:]
+        sol2 = np.array(sol)
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
             if sol2[i] != j:
@@ -131,7 +131,7 @@ def simul_anneal(a):
 
         current_Cost = eval_sol(a,sol)
 
-        sol2 = sol[:]
+        sol2 = np.array(sol)
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
             if i != j:
@@ -167,7 +167,7 @@ def PP_simul_anneal(a):
 
         current_Cost = kk_alg(PP_sol_to_seq(a,sol))
 
-        sol2 = sol[:]
+        sol2 = np.array(sol)
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
             if sol[i] != j:
