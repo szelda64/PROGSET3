@@ -94,7 +94,7 @@ def hill_climbing(a):
     for _ in np.arange(1, 500, dtype=np.int64):
         sol2 = sol[:]
         while True:
-            i,j=np.random.randint(low=1,high=len(a), dtype=np.int64)
+            i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
             if sol[i] != j:
                 break
         sol2[i] = j
@@ -108,7 +108,7 @@ def PP_hill_climbing(a):
     for _ in np.arange(1, 500, dtype=np.int64):
         sol2 = sol[:]
         while True:
-            i,j=np.random.randint(low=1,high=len(a), dtype=np.int64)
+            i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
             if sol[i] != j:
                 break
         sol2[i] = j
@@ -134,7 +134,7 @@ def simul_anneal(a):
 
         sol2 = sol[:]
         while True:
-            i,j=np.random.randint(low=1,high=len(a), dtype=np.int64)
+            i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
             if sol[i] != j:
                 break
         sol2[i] = j
@@ -166,7 +166,7 @@ def PP_simul_anneal(a):
 
         sol2 = sol[:]
         while True:
-            i,j=np.random.randint(low=1,high=len(a), dtype=np.int64)
+            i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
             if sol[i] != j:
                 break
         sol2[i] = j
