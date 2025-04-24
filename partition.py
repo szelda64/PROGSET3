@@ -4,7 +4,7 @@ import numpy as np
 
 def extractNumbers(file):
     with open(file, 'r') as f:
-        return f.read().splitlines()
+        return list(map(np.int64, f.read().splitlines()))
 
 
 #KK ALGORITHM
@@ -53,7 +53,7 @@ def sol_to_seq(a,b):
 
 def rep_random(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
-    for _ in range(1,25001):
+    for _ in np.arange(1, 500, dtype=np.int64):
         sol2 = np.random.choice([np.int64(-1),np.int64(1)], len(a))
         if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
             sol = sol2
@@ -61,7 +61,7 @@ def rep_random(a):
 
 def PP_rep_random(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
-    for _ in range(1,25001):
+    for _ in np.arange(1, 500, dtype=np.int64):
         sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
         if(kk_alg(sol_to_seq(a,sol2)) < kk_alg(sol_to_seq(a,sol))):
             sol = sol2
@@ -75,7 +75,7 @@ def PP_rep_random(a):
 def hill_climbing(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
 
-    for _ in range(1,25001):
+    for _ in np.arange(1, 500, dtype=np.int64):
         sol2 = sol[:]
         #generates a random neighbor rather than generating all neighbors and picking one randomly
         sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = -1 * sol[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] 
@@ -86,7 +86,7 @@ def hill_climbing(a):
 def PP_hill_climbing(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
 
-    for _ in range(1,25001):
+    for _ in np.arange(1, 500, dtype=np.int64):
         sol2 = sol[:]
         #generates a random neighbor rather than generating all neighbors and picking one randomly
         sol2[np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)] = np.random.randint(low=1,high=len(a),dtype=np.int64) 
@@ -100,12 +100,12 @@ def PP_hill_climbing(a):
 #SIMULATED ANNEALING 
 
 def simul_anneal(a):
-    initial_temp=10**10
-    cooling_rate=0.8
+    initial_temp=np.int64(10**10)
+    cooling_rate=np.int64(0.8)
 
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
 
-    for t in range(1,25001):
+    for t in np.arange(1, 500, dtype=np.int64):
         temp = initial_temp * (cooling_rate**(t/300))
 
         current_Cost = kk_alg(sol_to_seq(a,sol))
@@ -116,7 +116,10 @@ def simul_anneal(a):
         neighbor_Cost = kk_alg(sol_to_seq(a,sol2))
 
         deltaE =  current_Cost - neighbor_Cost
-        prob = np.e **((-deltaE)/temp)
+        if temp != np.int64(0):
+            prob = np.int64(np.e) **((-deltaE)/temp)
+        else:
+            prob = np.int64(0)
 
         #if solution is better or if probability says yes to the dress
         if deltaE > 0 or prob > temp: 
@@ -126,12 +129,12 @@ def simul_anneal(a):
 
 
 def PP_simul_anneal(a):
-    initial_temp=100
-    cooling_rate=0.99
+    initial_temp=np.int64(10**10)
+    cooling_rate=np.int64(0.8)
 
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
 
-    for t in range(1,25001):
+    for t in np.arange(1, 500, dtype=np.int64):
         temp = initial_temp * (cooling_rate**t)
 
         current_Cost = kk_alg(sol_to_seq(a,sol))
@@ -142,7 +145,10 @@ def PP_simul_anneal(a):
         neighbor_Cost = kk_alg(sol_to_seq(a,sol2))
 
         deltaE =  current_Cost - neighbor_Cost
-        prob = np.e **((-deltaE)/temp)
+        if temp != np.int64(0): 
+            prob = np.int64(np.e) **((-deltaE)/temp)
+        else:
+            prob = np.int64(0)
 
         #if solution is better or if probability says yes to the dress
         if deltaE > 0 or prob > temp: 
@@ -161,16 +167,16 @@ file = sys.argv[3]
 a = extractNumbers(file)
 
 if algorithm == 0:
-    kk_alg(a)
+    print(kk_alg(a))
 elif algorithm == 1:
-    rep_random(a)
+    print(kk_alg(sol_to_seq(a,rep_random(a))))
 elif algorithm == 2:
-    hill_climbing(a)
+    print(kk_alg(sol_to_seq(a,hill_climbing(a))))
 elif algorithm == 3:
-    simul_anneal(a)
+    print(kk_alg(sol_to_seq(a,simul_anneal(a))))
 elif algorithm == 11:
-    PP_rep_random(a)
+    print(kk_alg(sol_to_seq(a,PP_rep_random(a))))
 elif algorithm == 12:
-    PP_hill_climbing(a)
+    print(kk_alg(sol_to_seq(a,PP_hill_climbing(a))))
 elif algorithm == 13:
-    PP_simul_anneal(a)
+    print(kk_alg(sol_to_seq(a,PP_simul_anneal(a))))

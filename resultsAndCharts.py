@@ -13,17 +13,17 @@ def randomTests():
             if i == 0:
                 residues[0].append(kk_alg(a))
             elif i == 1:
-                residues[1].append(rep_random(a))
+                residues[1].append(kk_alg(sol_to_seq(a,rep_random(a))))
             elif i == 2:
-                residues[2].append(hill_climbing(a))
+                residues[2].append(kk_alg(sol_to_seq(a,hill_climbing(a))))
             elif i == 3:
-                residues[3].append(simul_anneal(a))
+                residues[3].append(kk_alg(sol_to_seq(a,simul_anneal(a))))
             elif i == 4:
-                residues[4].append(PP_rep_random(a))
+                residues[4].append(kk_alg(sol_to_seq(a,PP_rep_random(a))))
             elif i == 5:
-                residues[5].append(PP_hill_climbing(a))
+                residues[5].append(kk_alg(sol_to_seq(a,PP_hill_climbing(a))))
             elif i == 6:
-                residues[6].append(PP_simul_anneal(a))
+                residues[6].append(kk_alg(sol_to_seq(a,PP_simul_anneal(a))))
 
     
 
