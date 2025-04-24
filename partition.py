@@ -130,7 +130,7 @@ def simul_anneal(a):
     cooling_rate=np.int64(0.8)
 
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
-
+    sol3 = sol
     for t in np.arange(1, 2501, dtype=np.int64):
         temp = initial_temp * (cooling_rate**(t // 300))
 
@@ -144,19 +144,21 @@ def simul_anneal(a):
         sol[i] *= -1
         if np.random.random() < 0.5:
             sol[j] *= -1 
+        
         neighbor_Cost =eval_sol(a,sol2)
-
+        # if neighbor solution is better
         deltaE =  neighbor_Cost - current_Cost
         if temp != np.int64(0):
             prob = np.int64(np.e) **((-deltaE)/temp)
         else:
             prob = np.int64(0)
-
+        
         #if solution is better or if probability says yes to the dress
         if deltaE > 0 or prob > temp: 
             sol = sol2
-
-    return sol         
+        if current_Cost < eval_sol(a,sol3):
+            sol3 = sol
+    return sol3         
 
 
 def PP_simul_anneal(a):
@@ -164,7 +166,7 @@ def PP_simul_anneal(a):
     cooling_rate=np.int64(0.8)
 
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
-
+    sol3 = sol
     for t in np.arange(1, 2501, dtype=np.int64):
         temp = initial_temp * (cooling_rate**(t // 300))
 
@@ -187,8 +189,10 @@ def PP_simul_anneal(a):
         #if solution is better or if probability says yes to the dress
         if deltaE > 0 or prob > temp: 
             sol = sol2
+        if current_Cost < eval_sol(a,sol3):
+            sol3 = sol
 
-    return sol         
+    return sol3
 
 
 example1 = [10,8,7,6,5]
