@@ -34,7 +34,7 @@ def kk_alg(a):
 
 def PP_sol_to_seq(a,b):
     seq = np.zeros(shape=len(b))
-    for i in range(len(b)):
+    for i in range(1,len(b)):
         p = b[i]
         seq[p] = seq[p] + a[i]
     return seq
@@ -50,16 +50,12 @@ def eval_sol(a, b):
     return abs(a1-a2)
 
 
-# def PP_sol_to_seq(a,b):
-#     seq = np.array(a)
-#     for i in range(len(b)):
-#         for j in range(len(a)):
-#             if i < j:
-#                 if b[i] == b[j]:
-#                     seq[i] += seq[j]
-#                     seq[j] = 0
-#     return seq
-
+"""def PP_sol_to_seq(a,b):
+    seq = np.array(a)
+    res = 
+    for i in range(len(a)):
+        seq[b[i]] += a[i]
+    return seq"""
 
 
 #REPEATED RANDOM
@@ -67,7 +63,7 @@ def eval_sol(a, b):
 def rep_random(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
 
-    for _ in np.arange(1, 250001, dtype=np.int64):
+    for _ in np.arange(1, 25001, dtype=np.int64):
         sol2 = np.random.choice([np.int64(-1),np.int64(1)], len(a))
         if eval_sol(a,sol2) < eval_sol(a,sol):
             sol = sol2
@@ -75,7 +71,7 @@ def rep_random(a):
 
 def PP_rep_random(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
-    for _ in np.arange(1, 250001, dtype=np.int64):
+    for _ in np.arange(1, 25001, dtype=np.int64):
         sol2 = np.random.randint(low=1, high=len(a),size=len(a),dtype=np.int64)
         if(kk_alg(PP_sol_to_seq(a,sol2)) < kk_alg(PP_sol_to_seq(a,sol))):
             sol = sol2
@@ -89,7 +85,7 @@ def PP_rep_random(a):
 def hill_climbing(a):
     sol = np.random.choice([np.int64(-1),np.int64(1)], len(a))
 
-    for _ in np.arange(1, 250001, dtype=np.int64):
+    for _ in np.arange(1, 25001, dtype=np.int64):
         sol2 = np.array(sol)
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)
@@ -105,7 +101,7 @@ def hill_climbing(a):
 def PP_hill_climbing(a):
     sol = np.random.randint(low=1,high=len(a),size=len(a),dtype=np.int64)
 
-    for _ in np.arange(1, 250001, dtype=np.int64):
+    for _ in np.arange(1, 25001, dtype=np.int64):
         sol2 = np.array(sol)
         while True:
             i,j=np.random.randint(low=1,high=len(a), size=2, dtype=np.int64)

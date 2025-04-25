@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from partition import *
+from partition import kk_alg, eval_sol, rep_random, hill_climbing, simul_anneal, PP_sol_to_seq, PP_rep_random, PP_hill_climbing, PP_simul_anneal
 from time import process_time
 
 def randomTests():
@@ -86,8 +86,6 @@ def randomTests():
     fig.suptitle('Minimal Residues Found by Each Algorithm Over 25000 Iterations')
     fig.set_size_inches(60, 20)
     return residues
-
-
 randomTests()
 
 
