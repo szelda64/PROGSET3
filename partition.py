@@ -192,7 +192,7 @@ example1 = [10,8,7,6,5]
 example1SOL = [1,2,2,4,5]
 
 
-"""flag = int(sys.argv[1])
+flag = int(sys.argv[1])
 algorithm = int(sys.argv[2])
 file = sys.argv[3]
 a = extractNumbers(file)
@@ -210,4 +210,4 @@ elif algorithm == 11:
 elif algorithm == 12:
     print(kk_alg(PP_sol_to_seq(a,PP_hill_climbing(a))))
 elif algorithm == 13:
-    print(kk_alg(PP_sol_to_seq(a,PP_simul_anneal(a))))"""
+    print(kk_alg(PP_sol_to_seq(a,PP_simul_anneal(a))))
