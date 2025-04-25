@@ -37,6 +37,7 @@ def PP_sol_to_seq(a,b):
     for i in range(1,len(b)):
         p = b[i]
         seq[p] = seq[p] + a[i]
+    #print(f"Resulting sequence: {seq}")
     return seq
 
 def eval_sol(a, b):
