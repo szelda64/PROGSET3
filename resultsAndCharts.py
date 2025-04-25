@@ -34,13 +34,13 @@ def randomTests():
                 print("Done with PP_simul_anneal")
         print("Done with one round of iterations")
     fig, (ax1, ax2, ax3, ax4, ax5, ax6, ax7) = plt.subplots(1, 7)
-    ax1.hist(y, residues[0], label = "Karmarkar-Karp")
-    ax2.hist(y, residues[1], label = "Repeated Random")
-    ax3.hist(y, residues[2], label = "Hill Climbing")
-    ax4.hist(y, residues[3], label = "Simulated Annealing")
-    ax5.hist(y, residues[4], label = "Prepartioned Repeated Random")
-    ax6.hist(y, residues[5], label = "Prepartitioned Hill Climbing")
-    ax7.hist(y, residues[6], label = "Prepartioned Simulated Annealing")
+    ax1.hist(residues[0], label = "Karmarkar-Karp")
+    ax2.hist(residues[1], label = "Repeated Random")
+    ax3.hist(residues[2], label = "Hill Climbing")
+    ax4.hist(residues[3], label = "Simulated Annealing")
+    ax5.hist(residues[4], label = "Prepartioned Repeated Random")
+    ax6.hist(residues[5], label = "Prepartitioned Hill Climbing")
+    ax7.hist(residues[6], label = "Prepartioned Simulated Annealing")
 
     ax1.set_title('Minimal Residues Found by Karmarkar-Karp over 25000 iterations')
     ax2.set_title('Minimal Residues Found by Repeated Random over 25000 iterations')
@@ -61,16 +61,6 @@ def randomTests():
     fig.suptitle('Minimal Residues Found by Each Algorithm Over 25000 Iterations')
     fig.set_size_inches(60, 20)
     return residues
-
-
-    ax1.legend()
-    ax2.legend()
-    fig.supxlabel('Run Number')
-    fig.supylabel('Residue')
-    fig.suptitle('Residues of Algorithms')
-
-    fig.set_size_inches(18.5, 8.5)
-    fig.show()
 randomTests()
 
 

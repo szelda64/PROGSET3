@@ -32,12 +32,12 @@ def kk_alg(a):
     a.append(int(0))
     return kk_alg(a)
 
-# def PP_sol_to_seq(a,b):
-#     seq = np.zeros(shape=len(b))
-#     for i in range(1,len(b)):
-#         p = b[i]
-#         seq[p] = seq[p] + a[i]
-#     return seq
+def PP_sol_to_seq(a,b):
+    seq = np.zeros(shape=len(b))
+    for i in range(1,len(b)):
+        p = b[i]
+        seq[p] = seq[p] + a[i]
+    return seq
 
 def eval_sol(a, b):
     a1 = 0
@@ -50,15 +50,12 @@ def eval_sol(a, b):
     return abs(a1-a2)
 
 
-def PP_sol_to_seq(a,b):
+"""def PP_sol_to_seq(a,b):
     seq = np.array(a)
-    for i in range(len(b)):
-        for j in range(len(a)):
-            if i < j:
-                if b[i] == b[j]:
-                    seq[i] += seq[j]
-                    seq[j] = 0
-    return seq
+    res = 
+    for i in range(len(a)):
+        seq[b[i]] += a[i]
+    return seq"""
 
 
 #REPEATED RANDOM
